@@ -8,7 +8,7 @@ import { ProductCreateComponent } from './components/product-create/product-crea
 const routes: Routes = [
   {path: '', component: ProductListComponent},
   {path: 'createProduct', component: ProductCreateComponent},
-  {path: 'editProduct/:id', component: ProductCreateComponent},
+  {path: 'updateBook/:id', component: ProductCreateComponent},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 

@@ -2,39 +2,35 @@
     <div class="row "> 
         <div class="col-lg-8 offset-lg-2">
             <div class="card bg-dark">
-                <div class="card-body text-center">
-                    <span class="text-white"> <h1>Listado de productos</h1></span>
-                    <button class="btn btn-success float-end" routerLink="/createProduct">Nuevo</button>
-                    <table class="table table-dark table-hover mt-3">
+                <div class="card-body">
+                    <span class="text-white"> <h1>Libros</h1></span>
+                    <button class="btn btn-secondary float-end" routerLink="/createProduct">Nuevo</button>
+                    <table *ngIf="listBooks.length > 0 " class="table table-dark table-hover mt-3" >
                         <thead>
                             <tr>
-                              <th scope="col" class="text-info">Producto</th>
-                              <th scope="col" class="text-info">Categoría</th>
-                              <th scope="col" class="text-info">Ubicación</th>
+                              <th scope="col" class="text-info">Titulo</th>
+                              <th scope="col" class="text-info">Autor</th>
+                              <th scope="col" class="text-info">Editorial</th>
                               <th scope="col" class="text-info">Precio</th>
                               <th scope="col"></th>
-                              <th></th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <th >Coca cola</th>
-                              <td>Mark</td>
-                              <td>Otto</td>
-                              <td>3</td>
-                              <td><i class="fa-solid fa-trash-can"></i></td>
-                              <td><i class="fa-regular fa-pen-to-square"></i></td>
-                            </tr>
-                            <tr>
-                              <th >Fanta</th>
-                              <td>Jacob</td>
-                              <td>Thornton</td>
-                              <td>4</td>
-                              <td><i class="fa-solid fa-trash-can"></i></td>
-                              <td><i class="fa-regular fa-pen-to-square"></i></td>
+                            <tr *ngFor = "let book of listBooks" >
+                              <th >{{book.title}}</th>
+                              <td>{{book.author}}</td>
+                              <td>{{book.editorial}}</td>
+                              <td>{{book.price | currency: 'USD'}}</td>
+                              <td class="me-0 pe-0" style="width: 1px;">
+                                  <button [routerLink]="['/updateBook',book._id]"  class="btn btn-info me-2"> Editar</button>
+                              </td>
+                              <td class="me-0 pe-0" style="width: 1px;">
+                                  <button (click)="deleteBook(book._id)" class="btn btn-light me-0"> Eliminar</button>
+                              </td>
                             </tr>
                           </tbody>                        
                     </table>
+                    <h6 *ngIf="listBooks.length == 0 " class="float-start mt-3 text-white">No hay libros disponibles</h6>
                 </div>
             </div>
         </div>
