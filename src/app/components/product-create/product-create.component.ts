@@ -14,6 +14,9 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-create.component.css']
 })
 export class ProductCreateComponent implements OnInit {
+  public image: any = "../../../assets/noImage.png";
+  public file: any;
+  public nameimg!: string;
   productForm: FormGroup;
   titleScreen = 'Añadir libro';
   id: string | null;
@@ -26,6 +29,7 @@ export class ProductCreateComponent implements OnInit {
       author: ['', Validators.required],
       editorial: ['', Validators.required],
       price: ['', Validators.required],
+      image: [''],
     })
     this.id = this.routerAct.snapshot.paramMap.get('id');
    }
@@ -40,6 +44,7 @@ export class ProductCreateComponent implements OnInit {
       author: this.productForm.get('author')?.value,
       editorial: this.productForm.get('editorial')?.value,
       price: this.productForm.get('price')?.value,
+      image: this.image,
     }
 
     if(this.id != null){
@@ -64,19 +69,47 @@ export class ProductCreateComponent implements OnInit {
     }
     
   }
+  OnFileChange(event: any): any {
+    if(event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.file = event.target.files[0];
+      if(file.type.includes("image")) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        
+        reader.onload = function load(this: any) {
+        this.editableimage = reader.result;
+        this.image = reader.result;
+        console.log(this.image);
+        }.bind(this);
+      }else {
+        console.log('Hubo un error')
+      }
+    }
+  }
+
     edit(){
       if(this.id  != null){
         this.titleScreen = 'Editar libro';
         this._bookService.getBook(this.id).subscribe(data =>{
+          this.image = null;
+          const fileimage = this.tofile();
           this.productForm.setValue({
             title: data.title,
             author: data.author,
             editorial: data.editorial,
             price: data.price,
-          });
-        });
+            image: fileimage,
+          })
+          this.image = data.image;
+        })
       }
-    };
+    }
+
+    tofile(){
+      var afi = document.createElement('a');
+      return afi;
+    }
   
 
 }

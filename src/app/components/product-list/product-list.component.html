@@ -1,17 +1,18 @@
-<div class="container mt-5">
+<div class="container mt-4 mb-3">
     <div class="row "> 
-        <div class="col-lg-8 offset-lg-2">
-            <div class="card bg-dark">
+        <div class="">
+            <div class="card " >
                 <div class="card-body">
-                    <span class="text-white"> <h1>Libros</h1></span>
+                    <span class=""> <h1>Libros</h1></span>
                     <button class="btn btn-secondary float-end" routerLink="/createProduct">Nuevo</button>
-                    <table *ngIf="listBooks.length > 0 " class="table table-dark table-hover mt-3" >
+                    <!--<table *ngIf="listBooks.length > 0 " class="table table-dark table-hover mt-3" >
                         <thead>
                             <tr>
                               <th scope="col" class="text-info">Titulo</th>
                               <th scope="col" class="text-info">Autor</th>
                               <th scope="col" class="text-info">Editorial</th>
                               <th scope="col" class="text-info">Precio</th>
+                              <th scope="col" class="text-info">Imagen</th>
                               <th scope="col"></th>
                             </tr>
                           </thead>
@@ -21,6 +22,7 @@
                               <td>{{book.author}}</td>
                               <td>{{book.editorial}}</td>
                               <td>{{book.price | currency: 'USD'}}</td>
+                              <td><img class="img-fluid" src="{{book.image}}" alt=""></td>
                               <td class="me-0 pe-0" style="width: 1px;">
                                   <button [routerLink]="['/updateBook',book._id]"  class="btn btn-info me-2"> Editar</button>
                               </td>
@@ -29,8 +31,85 @@
                               </td>
                             </tr>
                           </tbody>                        
-                    </table>
-                    <h6 *ngIf="listBooks.length == 0 " class="float-start mt-3 text-white">No hay libros disponibles</h6>
+                    </table>--><!--
+                                            <div class="">
+                        <div  *ngIf="listBooks.length > 0 " class="container d-flex justify-content-around flex-wrap">
+                            <div *ngFor = "let book of listBooks" >
+                                <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-12 col-xs-12 d-flex justify-content-center mb-4">
+                                    
+                                        <div class="card shadow" style="max-width: 20rem;">
+                                            <img src="{{book.image}}" class="img-fluid mt-0 rounded"
+                                            style="min-height: 430px;min-width:200px" alt="..." >
+
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{book.title}}</h5>
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <p class="my-0">{{book.price | currency: 'USD'}}</p>
+                                                    <p class="my-0">{{book.author}}</p>
+                                                    <p class="my-0">{{book.editorial}}</p>
+                                                </li>
+                                            </ul>
+                                            <div class="card-footer">
+                                                <button [routerLink]="['/updateBook',book._id]"  class="btn btn-info me-2"> Editar</button>
+                                                <button (click)="deleteBook(book._id)" class="btn btn-light me-0"> Eliminar</button>
+                                            </div>
+                                        </div>
+                                
+                                </div>
+                            </div>
+                        </div>-->
+                            <!--
+                            <div class="card-group ">
+                            
+                                    <div *ngFor = "let book of listBooks" class="card  mb-3" style="width: 18rem;" style="max-width: 200px;">
+                                        <img src="{{book.image}}" class="img-fluid" alt="..." style="max-height: 250px;" >
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{book.title}}</h5>
+                                            
+                                            
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <p class="my-0">{{book.price | currency: 'USD'}}</p>
+                                                <p class="my-0">{{book.author}}</p>
+                                                <p class="my-0">{{book.editorial}}</p>
+                                            </li>
+                                        </ul>
+                                        <div class="card-footer">
+                                            <button [routerLink]="['/updateBook',book._id]"  class="btn btn-info me-2"> Editar</button>
+                                            <button (click)="deleteBook(book._id)" class="btn btn-light me-0"> Eliminar</button>
+                                        </div>
+                                    </div>
+                                
+                            </div>-->
+                        
+
+                        <div *ngIf="listBooks.length > 0 " class="container d-flex justify-content-around flex-wrap">
+                            <div *ngFor = "let book of listBooks" >
+                                    <div class="card mt-3 shadow" style="width: 18rem;">
+                                        <div class="d-flex justify-content-center">
+                                            <img src="{{book.image}}" class="img-fluid mt-0 rounded"
+                                            style="min-height: 430px;min-width:200px" alt="..." > 
+                                        </div>
+                                        <div class="card-body ">
+                                            <h5 class="card-title text-center">{{book.title}}</h5>
+                                            <h6 class="card-subtitle text-center">{{book.price | currency: 'USD'}}</h6>
+                                                <p class="card-text mb-0">{{book.author}}</p>
+                                                <p class="card-text mb-5">{{book.editorial}}</p>
+                                                <div class="position-absolute d-flex justify-content-center bottom-0 mb-3 w-100 ">
+                                                    <button [routerLink]="['/updateBook',book._id]"  class="btn btn-info me-2"> Editar</button>
+                                                    <button (click)="deleteBook(book._id)" class="btn btn-light me-0"> Eliminar</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                            
+                            </div>
+                        </div>
+                        <h6 *ngIf="listBooks.length == 0 " class="float-start mt-3 text-white">No hay libros disponibles</h6>
+                    
+                    
                 </div>
             </div>
         </div>

@@ -29,6 +29,13 @@
                                 <span class="text-danger fw-semibold"> El precio de el producto es obligatorio </span>
                             </div> 
                         </div>
+                        <div class="mb-3">
+                            <input type="file" class="form-control form-control'lg" placeholder="Imagen" formControlName="image" (change)="OnFileChange($event)" #photoInput>
+                            <div class="float-start ms-3 mb-2" *ngIf="productForm.get('image')?.hasError('required') && productForm.get('image')?.touched" >
+                                <span class="text-danger fw-semibold"> La imagen de el producto es obligatorio </span>
+                            </div> 
+                        </div>
+                        <img *ngIf="image" style="max-height: 300px; margin-top: 20px" src="{{ image }}" alt="image" (click)="photoInput.click()">
                         <br>
                         <div class="mb-3">
                             <button routerLink="/" class="btn btn-info float-start">Regresar</button>
